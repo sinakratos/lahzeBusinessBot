@@ -8,7 +8,7 @@ async function showOptionsToUser(ctx, userId, uuid) {
   // If botOrCtx is a ctx object it will have .reply, else assume bot instance
   const optionKeys = [
     'email','mobile','landline','google_map','google_review','linkedin','facebook','x','instagram','whatsapp','telegram_contact',
-    'website','text','photo','video','voice','audio','card_number'
+    'website','text','photo','video','voice','audio','card_number','fal'
   ];
   // compute remaining
   const dbRows = await getDisplayRows(uuid);

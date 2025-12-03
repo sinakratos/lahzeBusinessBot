@@ -1,6 +1,7 @@
 const { getLinkRecord } = require('../db/links');
 const { getDisplayRows } = require('../db/customerData');
 const { pending_customer_stage } = require('../services/flow');
+const { getRandomFal } = require('../services/fal');
 
 module.exports = async function startHandler(ctx, bot) {
   try {
@@ -46,6 +47,7 @@ module.exports = async function startHandler(ctx, bot) {
         if (['name', 'contact', 'category'].includes(type)) continue;
 
         if (type === 'text') await ctx.reply(val);
+        else if (type === 'fal') await ctx.reply(getRandomFal());
         else if (type === 'photo') await ctx.replyWithPhoto(val);
         else if (type === 'video') await ctx.replyWithVideo(val);
         else if (type === 'voice') await ctx.replyWithVoice(val);
@@ -100,6 +102,7 @@ module.exports = async function startHandler(ctx, bot) {
         if (['name', 'contact', 'category'].includes(type)) continue;
 
         if (type === 'text') await ctx.reply(val);
+        else if (type === 'fal') await ctx.reply(getRandomFal());
         else if (type === 'photo') await ctx.replyWithPhoto(val);
         else if (type === 'video') await ctx.replyWithVideo(val);
         else if (type === 'voice') await ctx.replyWithVoice(val);

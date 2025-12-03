@@ -1,8 +1,8 @@
 const crypto = require('crypto');
 const { pending_customer_stage, shown_rules_confirmed, showOptionsToUser } = require('../services/flow');
 const { insertLinkRow, getLinkRecord } = require('../db/links');
-// const { saveDataRow } = require('../db/customerData');
-// const { addChoiceRow } = require('../db/choices');
+const { saveDataRow } = require('../db/customerData');
+const { addChoiceRow } = require('../db/choices');
 const { generateQrBuffer } = require('../utils/qr');
 const { CHOICE_KEY_TO_LABEL } = require('../services/labels');
 const { toPersianRange } = require('../utils/persianDate');
@@ -130,32 +130,32 @@ module.exports = async function callbackHandler(ctx, bot) {
       await ctx.reply(`گزینه '${CHOICE_KEY_TO_LABEL[key] || key}' قبلاً انتخاب شده است.`);
       return;
     }
-    // ✅ FAL SPECIAL FLOW (no content upload)
-    // if (key === 'fal') {
-    //   // ✅ remove old inline buttons immediately
-    //   try {
-    //     await ctx.editMessageReplyMarkup({ inline_keyboard: [] });
-    //   } catch (e) {}
+    // FAL SPECIAL FLOW (no content upload)
+    if (key === 'fal') {
+      // ✅remove old inline buttons immediately
+      try {
+        await ctx.editMessageReplyMarkup({ inline_keyboard: [] });
+      } catch (e) {}
 
-    //   // ✅ save to DB
-    //   await saveDataRow(uuid, fromId, 'fal', 'auto');
-    //   await addChoiceRow(uuid, fromId, 'fal', 'فال حافظ');
+      // ✅ save to DB
+      await saveDataRow(uuid, fromId, 'fal', 'auto');
+      await addChoiceRow(uuid, fromId, 'fal', 'فال حافظ');
 
-    //   // ✅ mark as used IN MEMORY (this is what hides the button)
-    //   pending_customer_stage[fromId].choices_done.push('fal');
+      // ✅ mark as used IN MEMORY (this is what hides the button)
+      pending_customer_stage[fromId].choices_done.push('fal');
 
-    //   // ✅ reset state
-    //   pending_customer_stage[fromId].stage = 'pick_option';
-    //   delete pending_customer_stage[fromId].await_for;
+      // ✅ reset state
+      pending_customer_stage[fromId].stage = 'pick_option';
+      delete pending_customer_stage[fromId].await_for;
 
-    //   // ✅ send confirmation
-    //   await ctx.reply('✅ فال حافظ به هدیه اضافه شد.');
+      // ✅ send confirmation
+      await ctx.reply('✅ فال حافظ به هدیه اضافه شد.');
 
-    //   // ✅ VERY IMPORTANT: correct menu call
-    //   await showOptionsToUser(ctx, fromId, uuid);
+      // ✅ VERY IMPORTANT: correct menu call
+      await showOptionsToUser(ctx, fromId, uuid);
 
-    //   return;
-    // }
+      return;
+    }
     // set awaiting
     pending_customer_stage[fromId].stage = 'await_content';
     pending_customer_stage[fromId].await_for = key;

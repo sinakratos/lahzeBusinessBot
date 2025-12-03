@@ -4,6 +4,7 @@ const { addChoiceRow } = require('../db/choices');
 const { CHOICE_KEY_TO_LABEL } = require('../services/labels');
 
 function expectedTypeFor(key) {
+    if (key === 'fal') return 'fal';
   if (['text','email','google_map','google_review','linkedin','facebook','x','instagram','website','card_number','mobile','landline','telegram','whatsapp'].includes(key)) return 'text';
   if (key === 'photo') return 'photo';
   if (key === 'voice') return 'voice';
@@ -56,6 +57,8 @@ module.exports = async function messageHandler(ctx, bot) {
       }
 
       const expected = expectedTypeFor(key);
+      if (expected === 'fal') {
+        await ctx.reply("فال حافظ اضافه شد."); return; }
       if (expected === 'text') {
         if (!text) { await ctx.reply('لطفاً متن/لینک/آیدی مورد نظر را ارسال کنید.'); return; }
         await saveDataRow(uuid, userId, key, text);
