@@ -1,0 +1,21 @@
+module.exports.CHOICE_KEY_TO_LABEL = {
+  email: 'ایمیل',
+  mobile: 'شماره همراه',
+  landline: 'شماره ثابت',
+  google_map: 'گوگل مپ',
+  google_review: 'گوگل ریویو',
+  linkedin: 'لینکدین',
+  facebook: 'فیسبوک',
+  x: 'ایکس',
+  instagram: 'اینستاگرام',
+  whatsapp: 'واتس‌اپ',
+  telegram_contact: 'تلگرام',
+  website: 'وب‌سایت',
+  text: 'متن',
+  photo: 'عکس',
+  video: 'ویدیو',
+  voice: 'ویس',
+  audio: 'آهنگ',
+  card_number: 'شماره کارت',
+  getqr: 'دریافت QR-Code »'
+};
