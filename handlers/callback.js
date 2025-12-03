@@ -48,7 +48,7 @@ module.exports = async function callbackHandler(ctx, bot) {
 
     // compute persian range
     const createdAt = new Date();
-    const { display, start_jalali, expire_jalali } = toPersianRange(createdAt, months);
+    const { display } = toPersianRange(createdAt, months);
 
     // store including persian fields
     await insertLinkRow(uuidValue, startLink, months);
