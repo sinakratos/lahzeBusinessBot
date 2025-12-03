@@ -1,5 +1,6 @@
 module.exports.CHOICE_KEY_TO_LABEL = {
   email: 'ایمیل',
+  fal: 'فال حافظ',
   mobile: 'شماره همراه',
   landline: 'شماره ثابت',
   google_map: 'گوگل مپ',
